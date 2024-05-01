@@ -5,6 +5,7 @@ on :
       - opened
 jobs:
   Output-Event:
+    continue-on-error: true
     strategy:
       matrix:
         operating-system: ['ubuntu-latest' , 'windows-latest']
