@@ -93,6 +93,12 @@ jobs:
       artifact-name: test-report
     secrets:
       secret-key : ${{secrets.secret_key}}
+  Print-Deploy-Output:
+    needs: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print deploy output
+        run: echo "${{needs.Deploy.outputs.result}}"
   Report:
     needs: [Lint, Deploy]
     if: failure()

@@ -11,8 +11,13 @@ on:
         secret-key: 
             description: The name of secret key
             required: false
+    outputs:
+        result:
+            value: ${{jobs.Deploy.outputs.outcome}}
 jobs:
   Deploy:
+    outputs:
+        outcome: ${{steps.step-output.outputs.step-result}}
     runs-on: ubuntu-latest
     steps:
       - name: Get Artifact
@@ -28,3 +33,7 @@ jobs:
 
       - name: Deploy Project
         run: echo "Deploying..."
+    
+      - name: Return output
+        id: step-output
+        run: echo "step-result=success" >> $GITHUB_OUTPUT
