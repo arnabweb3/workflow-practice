@@ -93,7 +93,7 @@ jobs:
       - name: Get Artifact
         uses: actions/download-artifact@v4
         with:
-          name: artifacts
+          name: test-report
 
       - name: List contents
         run: ls
