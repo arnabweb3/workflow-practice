@@ -88,21 +88,7 @@ jobs:
         run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
   Deploy:
     needs: Build
-    runs-on: ubuntu-latest
-    steps:
-      # - name: Get Artifact
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: test-report
-
-      - name: List contents
-        run: ls
-
-      - name: Output filename
-        run: echo "${{needs.Build.outputs.script-file}}"
-
-      - name: Deploy Project
-        run: echo "Deploying..."
+    uses: ./.github/workflows/reusable.yml
   Report:
     needs: [Lint, Deploy]
     if: failure()
