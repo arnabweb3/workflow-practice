@@ -1,26 +1,26 @@
 name: Reusable Deploy
-on: 
-    workflow_call:
-        inputs:
-            artifact-name: 
-                description: The name of the deployable artifact files
-                required: false
-                default: dist
-                type: string
+on:
+  workflow_call:
+    inputs:
+      artifact-name:
+        description: The name of the deployable artifact files
+        required: false
+        default: dist
+        type: string
 jobs:
-    Deploy:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Get Artifact
-              uses: actions/download-artifact@v4
-              with:
-                name: ${{inputs.artifact-name}}
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{inputs.artifact-name}}
 
-            - name: List contents
-              run: ls
+      - name: List contents
+        run: ls
 
-            - name: Output filename
-              run: echo "${{needs.Build.outputs.script-file}}"
+      - name: Output filename
+        run: echo "${{needs.Build.outputs.script-file}}"
 
-            - name: Deploy Project
-              run: echo "Deploying..."
+      - name: Deploy Project
+        run: echo "Deploying..."

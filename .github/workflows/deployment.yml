@@ -89,6 +89,8 @@ jobs:
   Deploy:
     needs: Build
     uses: ./.github/workflows/reusable.yml
+    with:
+      artifact-name: test-report
   Report:
     needs: [Lint, Deploy]
     if: failure()
