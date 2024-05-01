@@ -46,7 +46,7 @@ jobs:
       - name: Test Project
         run: npm run test
 
-      - name: Upload Artifacts
+      - name: Upload Test
         uses: actions/upload-artifact@v4
         with:
           name: artifacts
