@@ -91,6 +91,8 @@ jobs:
     uses: ./.github/workflows/reusable.yml
     with:
       artifact-name: test-report
+    secrets:
+      secret-key : ${{secrets.secret_key}}
   Report:
     needs: [Lint, Deploy]
     if: failure()
