@@ -97,3 +97,11 @@ jobs:
 
       - name: Deploy Project
         run: echo "Deploying..."
+  Report:
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output information
+        run: |
+          echo "Something went wrong"
+          echo ${{toJson(github)}}
