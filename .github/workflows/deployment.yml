@@ -90,10 +90,10 @@ jobs:
     needs: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Get Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: test-report
+      # - name: Get Artifact
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: test-report
 
       - name: List contents
         run: ls
