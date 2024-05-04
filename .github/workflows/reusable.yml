@@ -32,7 +32,13 @@ jobs:
         run: echo "${{secrets.secret-key}}"
 
       - name: Deploy Project
-        run: echo "Deploying..."
+        uses: ./.github/actions/deploy-to-s3
+        env:
+         AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+         AWS_SECRET_KEY_ID: ${{secrets.AWS_SECRET_KEY_ID}}
+        with:
+          bucket: gh-custom-action
+          dist-folder: ./dist
     
       - name: Return output
         id: step-output
