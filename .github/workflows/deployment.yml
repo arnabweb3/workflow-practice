@@ -13,17 +13,9 @@ jobs:
       - name: Install NodeJS
         uses: actions/setup-node@v3
 
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        id: cache
-        with:
-          path: node_modules
-          key: deps-node-modules-${{hashFiles('**/package-lock.json')}}
-
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
-
+      - name: Load and cache dependencies
+        uses: ./.github/actions/cached-dev-deps
+    
       - name: Lint Project
         run: npm run lint
   Test:
