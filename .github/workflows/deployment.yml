@@ -99,8 +99,8 @@ jobs:
     needs: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Print deploy output
-        run: echo "${{needs.Deploy.outputs.result}}"
+      - name: Print website url
+        run: echo "Live URL => ${{steps.deploy.outputs.website-url}}"
   Report:
     needs: [Lint, Deploy]
     if: failure()
