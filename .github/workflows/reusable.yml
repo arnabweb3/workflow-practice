@@ -22,11 +22,12 @@ jobs:
     steps:
       - name: Get Code
         uses: actions/checkout@v3
-        
+
       - name: Get Artifact
         uses: actions/download-artifact@v3
         with:
           name: ${{inputs.artifact-name}}
+          path: ./dist
 
       - name: List contents
         run: ls
