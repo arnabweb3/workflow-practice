@@ -73,6 +73,8 @@ jobs:
   Deploy:
     needs: Build
     runs-on: ubuntu-latest
+    outputs:
+      website-url: ${{steps.get-website-url.outputs.website-url}}
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -95,12 +97,16 @@ jobs:
         with:
           bucket: gh-custom-action
           dist-folder: ./dist
+      - name: Output Website URL
+        id: get-website-url
+        run: |
+          echo "website-url=${{steps.deploy.outputs.website-url}}" >> $GITHUB_OUTPUT
   Print-Deploy-Output:
     needs: Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Print website url
-        run: echo "Live URL => ${{steps.deploy.outputs.website-url}}"
+        run: echo "Live URL => ${{needs.Deploy.outputs.website-url}}"
   Report:
     needs: [Lint, Deploy]
     if: failure()
