@@ -54,9 +54,14 @@ jobs:
         uses: actions/setup-node@v3
 
       - name: Load and cache dependencies
+        id: cache-deps
         uses: ./.github/actions/cached-dev-deps
         with :
           caching: 'false'
+
+      - name: Output information
+        run: echo "Cache used ? ${{steps.cache-deps.outputs.used-cache}}"
+        
       - name: Build Project
         run: npm run build
 
