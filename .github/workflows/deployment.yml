@@ -72,11 +72,29 @@ jobs:
         run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
   Deploy:
     needs: Build
-    uses: ./.github/workflows/reusable.yml
-    with:
-      artifact-name: dist-files
-    secrets:
-      secret-key : ${{secrets.secret_key}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Get build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-files
+          path: ./dist
+
+      - name: Output contents
+        run: ls
+
+      - name: Deploy site
+        id: deploy
+        uses: ./.github/actions/deploy-to-s3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          bucket: gh-custom-action
+          dist-folder: ./dist
   Print-Deploy-Output:
     needs: Deploy
     runs-on: ubuntu-latest
