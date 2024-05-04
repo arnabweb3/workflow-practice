@@ -55,7 +55,8 @@ jobs:
 
       - name: Load and cache dependencies
         uses: ./.github/actions/cached-dev-deps
-
+        with :
+          caching: 'false'
       - name: Build Project
         run: npm run build
 
