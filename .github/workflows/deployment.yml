@@ -74,6 +74,12 @@ jobs:
     needs: Build
     runs-on: self-hosted
     steps:
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+
+      - name: Load and cache dependencies
+        uses: ./.github/actions/cached-dev-deps
+        
       - name: Get build artifacts
         uses: actions/download-artifact@v3
         with:
